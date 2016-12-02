@@ -18,8 +18,6 @@ import ceylon.collection { HashSet }
 "チャットのもろもろの処理を行うサーバー"
 class ChatServer(chatPath, middlewares) {
 
-    print("hoge");
-
     "WebSocketを待ち受けるパス"
     shared String chatPath;
 
@@ -59,9 +57,6 @@ class ChatServer(chatPath, middlewares) {
 
                 // ミドルウェアに処理を任せる
                 for (middleware in middlewares) {
-
-                    print(middleware.string);
-
                     value complete = middleware.interrupt(channelPool, channel, userMessage);
                     print("complete: " + complete.string);
                     if (complete) { break; }
