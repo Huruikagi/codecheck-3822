@@ -13,6 +13,7 @@ $(function () {
     return false;
   });
   ws.onmessage = function(msg){
+    console.log(msg);
     var resp = JSON.parse(msg.data);
     $('#messages')
       .append($('<li>')
