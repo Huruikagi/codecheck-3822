@@ -1,7 +1,10 @@
 import ceylon.http.server {
     Server,
     newServer,
-    startsWith
+    startsWith,
+    Endpoint,
+    Request,
+    Response
 }
 import ceylon.http.server.websocket {
     WebSocketChannel,
@@ -27,6 +30,11 @@ class ChatServer(chatPath, middlewares) {
 
     "サーバー本体"
     Server httpServer = newServer {
+        Endpoint {
+            path = startsWith("/hello");
+            void service(Request request, Response response)
+                => response.writeString("Hello");
+        },
         WebSocketEndpoint {
             path = startsWith(chatPath);
 
