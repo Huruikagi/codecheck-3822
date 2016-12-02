@@ -31,7 +31,10 @@ class ChatServer(chatPath, middlewares) {
             path = startsWith(chatPath);
 
             // ソケットが開いたとき：チャンネルプールに追加
-            void onOpen(WebSocketChannel channel) => channelPool.add(channel);
+            void onOpen(WebSocketChannel channel) {
+                print("connected: " + channel.string);
+                channelPool.add(channel);
+            }
 
             // ソケットが閉じたとき：チャンネルプールから削除
             void onClose(WebSocketChannel channel, CloseReason closeReason)
@@ -39,6 +42,9 @@ class ChatServer(chatPath, middlewares) {
 
             // テキスト受信時
             void onText(WebSocketChannel channel, String text) {
+
+                print("text: " + text);
+
                 // ミドルウェアに処理を実行させる
                 middlewares.each((ChatMiddleware element) => element.interrupt(channelPool, channel, text));
 
