@@ -7,13 +7,12 @@ import ceylon.json {
 "ユーザーから送信されたメッセージをラップするモデルクラス"
 class UserMessage(String text) {
 
-    print("A");
-
     value parsedJson = parse(text);
 
-    assert(is Object parsedJson, is String msg = parsedJson["text"]);
+    print("AAA");
 
-    shared String body = msg;
+    value msg = if (is Object parsedJson) then parsedJson["text"] else "";
 
-    print("B");
+    shared String body = if (is String msg) then msg else "";
+
 }
