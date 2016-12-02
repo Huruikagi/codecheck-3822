@@ -10,6 +10,7 @@ shared void runServer() {
     value server = ChatServer {
         chatPath = "/ws";
         middlewares = [
+            botMention,
             broadcast
         ];
     };
