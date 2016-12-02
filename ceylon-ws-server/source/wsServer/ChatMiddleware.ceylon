@@ -5,10 +5,10 @@ import ceylon.http.server.websocket {
 
 interface ChatMiddleware {
 
-    shared formal void interrupt(
+    shared formal Boolean interrupt(
         Set<WebSocketChannel> sockets,
         WebSocketChannel current,
-        String text
+        UserMessage userMessage
     );
 
 }

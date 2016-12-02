@@ -13,10 +13,6 @@ import ceylon.http.server.websocket {
 }
 import ceylon.io { SocketAddress }
 import ceylon.collection { HashSet }
-import ceylon.json {
-    parse,
-    Object
-}
 
 
 "チャットのもろもろの処理を行うサーバー"
@@ -33,11 +29,13 @@ class ChatServer(chatPath, middlewares) {
 
     "サーバー本体"
     Server httpServer = newServer {
+
         Endpoint {
             path = startsWith("/hello");
             void service(Request request, Response response)
                 => response.writeString("Hello");
         },
+
         WebSocketEndpoint {
             path = startsWith(chatPath);
 
@@ -51,33 +49,20 @@ class ChatServer(chatPath, middlewares) {
 
             // テキスト受信時
             void onText(WebSocketChannel channel, String text) {
-
                 // クライアントから受信したJSON形式のテキストをパースする
-                value parsedJson = parse(text);
+                value userMessage = UserMessage(text);
 
-                // 受信した形式が不正でないことを確認
-                assert(is Object parsedJson, is String message = parsedJson["text"]);
-
-                // ミドルウェアに処理を実行させる
-                middlewares.each((ChatMiddleware element) => element.interrupt(channelPool, channel, message));
-
-                // メッセージ返却用のJSONオブジェクトを生成する
-                value json = Object {
-                    "type" -> "message",
-                    "text" -> message,
-                    "success" -> true
-                };
-
-                // メッセージのブロードキャスト
-                channelPool.each((WebSocketChannel element) {
-                    element.sendTextAsynchronous(json.string, (WebSocketChannel a) {});
-                });
+                // ミドルウェアに処理を任せる
+                for (middleware in middlewares) {
+                    value complete = middleware.interrupt(channelPool, channel, userMessage);
+                    if (complete) { break; }
+                }
             }
         }
     };
 
 
-    "サーバーを起動する"
+    "サーバーを起動するためのメソッド"
     shared void open(SocketAddress socketAddress) {
         httpServer.start(socketAddress);
     }
