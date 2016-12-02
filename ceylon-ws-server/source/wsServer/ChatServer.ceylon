@@ -58,7 +58,6 @@ class ChatServer(chatPath, middlewares) {
                 // ミドルウェアに処理を任せる
                 for (middleware in middlewares) {
                     value complete = middleware.interrupt(channelPool, channel, userMessage);
-                    print("complete: " + complete.string);
                     if (complete) { break; }
                 }
             }
