@@ -15,5 +15,5 @@ shared void runServer() {
     };
 
     // サーバー起動
-    server.open(SocketAddress("127.0.0.1", 3000));
+    server.open(SocketAddress("ec2-54-147-114-181.compute-1.amazonaws.com", 3000));
 }
