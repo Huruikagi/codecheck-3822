@@ -25,15 +25,21 @@ object botMention satisfies ChatMiddleware {
 
                 // TODO ここに埋め込まない
                 if (command == "ping") {
+                    // pingコマンド
 
-                    print("HERE!");
-
+                    // レスポンスを生成
                     value serverResponse = ServerResponse("bot", "pong", true);
 
                     // pongをブロードキャスト
                     sockets.each((WebSocketChannel channel) => channel.sendText(serverResponse.jsonString));
 
                     // このメッセージに対する処理完了
+                    return false;
+
+                } else {
+                    // 未知のコマンドだった場合
+                    value serverResponse = ServerResponse("bot", "unknown command", false);
+                    current.sendText(serverResponse.jsonString);
                     return false;
                 }
             }

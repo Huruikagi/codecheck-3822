@@ -1,31 +1,28 @@
 ## デプロイ情報
 #### サービスURL
-{http://example.com}
 
 #### リポジトリURL
-{https://github.com/uuuuu/rrrrr}
+https://github.com/Huruikagi/codecheck-3822
 
 #### 使用言語
-- {node / python / ruby / Go / etc.}
+- ceylon
 
 #### 主なライブラリ
-- {ws / websockets / em-websocket / websocket / etc.}
+- ceylon sdk
 
 ####  ホスティングサービス
-- {AWS / DigitalOcean / Sakura / Heroku / etc.}
+- AWS
 
 ## 独自コマンドの実装
 #### 追加したコマンド
 ```
-bot {command} [parameters...]
 ```
 
 #### コマンドの説明
 
 ## 創意工夫 & 作り込み
 #### 作り込んだコマンド / 機能
-どんな機能をを追加 / 作り込んだのか？
+折角なのでテストに通るようにはしましたが時間が無かったので追加コマンドはありません。
 
 #### 創意工夫したポイント
-基本仕様では規定されていなかった、自分で考えた仕様や
-独自コマンドや作り込みの時にどんなコンセプトや考えを持って作ったのか？
+Ceylonを使いたかったので使ってみましたが、今は反省しています。
