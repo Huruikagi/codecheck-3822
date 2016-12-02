@@ -1,6 +1,8 @@
 'use strict';
 
 var ws = new WebSocket('ws://ec2-54-147-114-181.compute-1.amazonaws.com:3000/ws');
+// var ws = new WebSocket('ws://localhost:3000/ws');
+
 
 $(function () {
   $('form').submit(function(){
@@ -8,7 +10,9 @@ $(function () {
     ws.onopen = function() {
       console.log('sent message: %s', $('#m').val());
     };
-    ws.send($('#m').val());
+    ws.send(
+        '{"text": "' + $('#m').val() + '"}'
+    );
     $('#m').val('');
     return false;
   });

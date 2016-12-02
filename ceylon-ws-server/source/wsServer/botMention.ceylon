@@ -23,12 +23,11 @@ object botMention satisfies ChatMiddleware {
                 // メッセージからコマンド部分を取り出す
                 value command = exp.replace(userMessage.body, "");
 
-                print("command: " + command);
-
                 // TODO ここに埋め込まない
                 if (command == "ping") {
                     value serverResponse = ServerResponse("bot", "pong", true);
                     current.sendText(serverResponse.jsonString);
+                    print(serverResponse.jsonString);
 
                     // このメッセージに対する処理完了
                     return true;
